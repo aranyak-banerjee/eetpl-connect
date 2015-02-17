@@ -1,0 +1,53 @@
+#new_message_link{
+    height: 60px;
+}
+
+ul.todo-list li.un_read_message_list {
+   
+    border-bottom: 2px solid rgb(219, 219, 219);
+    cursor: pointer;
+}
+ul.todo-list li.un_read_message_list:hover {
+    color: aqua;
+    text-transform: underline;
+}
+
+ul.todo-list li.read_message_list {
+     background-color: rgb(253, 253, 253);
+    //background-color: red;
+    border-bottom: 2px solid rgb(219, 219, 219);
+    cursor: pointer;
+}
+
+ul.todo-list li.read_message_list:hover {
+     color: aqua;
+    text-transform: underline;
+}
+
+#message_titles_holder, #message_body_holder{
+    height: 500px;
+}
+
+#msg_view{
+    height: 90%;
+    border: 1px solid graytext;
+    border-radius: 5px;
+    overflow-y: scroll;
+    padding: 2px;
+    
+}
+
+#comment_box_holder{
+    border-radius: 5px;
+    padding: 2px;
+    margin-top: 2px;
+    
+}
+
+ul.menu li.un_read_message_list {
+    background-color: #BDECF7;
+}
+
+ul.todo-list li.selected {
+    background-color: rgb(172, 201, 202);
+}
