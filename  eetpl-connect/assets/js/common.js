@@ -70,14 +70,16 @@ function showMessage(msg_id) {
         success: function(data) {
             endLoader("#message_body_holder");
             data = JSON.parse(data);
-            if (data && data[0]) {
-                data = data[0]
-                $("#msg_view_title").html(data['title']);
-                $("#msg_view_body").html(data['text']);
-                $("#message_id_for_comment").html(data['id']);
+            console.log(data);
+            if (data['message'] && data['message'][0]) {
+                msgData = data['message'][0];
+                $("#msg_view_title .titleHolder").html(msgData['title']);
+                $("#msg_view_body .msgHolder").html(msgData['text']);
+                $("#message_id_for_comment").val(msg_id);
                 $("#comment_box_holder").show();
             } else {
                 console.log("Manage the error");
+                $("#message_id_for_comment").val("");
             }
 
         }

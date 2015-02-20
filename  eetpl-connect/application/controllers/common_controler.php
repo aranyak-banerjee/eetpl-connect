@@ -2,6 +2,7 @@
 //namespace controller;
 //use CI_Controller;
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ini_set('date.timezone', 'Asia/Kolkata');
 
 
 class Common_controler extends CI_Controller {
@@ -40,6 +41,7 @@ class Common_controler extends CI_Controller {
             return false;
         }
     }
+    
     
     
 }

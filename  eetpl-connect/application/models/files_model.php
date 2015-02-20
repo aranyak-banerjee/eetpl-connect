@@ -11,4 +11,15 @@ class files_model extends CI_Model {
             return $this->db->insert_id();
         }
     }
+    
+    function getFiles($type,$ref_id){
+        $sql = "SELECT * FROM ".$this->table."  where ref_id = ".$ref_id." AND type = '".$type."'";
+        $query =  $this->db->query($sql);
+        if ($query->num_rows > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+        
+    }
 }

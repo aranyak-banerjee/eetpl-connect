@@ -1,6 +1,7 @@
 <?php
 
 include_once 'files.php';
+//include_once 'comment_.php';
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -8,6 +9,7 @@ class Message extends Files {
 
     public function __construct() {
         parent::__construct();
+        $this->load->model("comment_model");
     }
 
     private function dummy() {
@@ -21,6 +23,25 @@ class Message extends Files {
     }
 
     public function list_message() {
+        
+        if ($data = $this->input->post()) {
+            $comment = $data["data"]['comment'];
+            $msgId = $data["message_id_for_comment"];
+            if($cId = $this->comment_model->insertComment($comment, "message_comment", $msgId)){
+                if (isset($_FILES)) {
+                    $res = $this->do_upload("connent_file",$cId);
+                    if($res["status"]){
+                        foreach($res["successDataSets"] as $data){
+                            $this->files_model->insertData($data);
+                        }
+                    }
+                }
+            }
+                
+
+            redirect("message/");
+        }
+        
         $data["messageList"] = $this->Message_model->getUserMessageList($this->userId);
         $data["total"] = $this->Message_model->getUserMessageListTotal($this->userId);
         $data["total_unread"] = $this->unreadMessages;
