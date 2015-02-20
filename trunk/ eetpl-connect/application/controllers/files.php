@@ -10,8 +10,7 @@ class Files extends Common_controler {
     
     public function __construct() {
         parent::__construct();
-        $this->load->model("files_model");
-        
+        $this->load->model("files_model");  
     }
 
     public function do_upload($refField, $refValue) {

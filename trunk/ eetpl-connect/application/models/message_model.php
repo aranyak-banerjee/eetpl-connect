@@ -49,7 +49,7 @@ class Message_model extends CI_Model {
     
     public function getMessage($messageId) {
         
-        $sql = "SELECT * FROM ".$this->table." where id = ".$messageId;
+        $sql = "SELECT * FROM ".$this->table."  where id = ".$messageId;
         $query =  $this->db->query($sql);
         return $query->result();
     }
@@ -77,7 +77,7 @@ class Message_model extends CI_Model {
             "title" => $title,
             "text" => $text,
             "created_by" => $this->session->userdata('user_details')->id,
-            "created_on" => date("Y-m-d H:i:s")
+            "created_on" => getCurrentDateTime()
         ];
         $this->db->insert($this->table, $params);
         if ($this->db->affected_rows() != 1) {

@@ -1,17 +1,17 @@
 <?php
 if (isset($_REQUEST["msgId"])) {
-       $passedMsgId = trim($_REQUEST["msgId"]);
+    $passedMsgId = trim($_REQUEST["msgId"]);
     ?>
-<script>
-    $(document).ready(function(){
-        $("ul.todo-list li").each(function(i,v){
-            if($(this).data("target")=='<?=$passedMsgId?>'){
-                $(this).click();
-            }
+    <script>
+        $(document).ready(function() {
+            $("ul.todo-list li").each(function(i, v) {
+                if ($(this).data("target") == '<?= $passedMsgId ?>') {
+                    $(this).click();
+                }
+            });
         });
-    });
-</script>
-    
+    </script>
+
     <?php
 }
 ?>
@@ -61,7 +61,7 @@ if (isset($_REQUEST["msgId"])) {
     </div>
 </div>
 <div class="row">
-    <section class="col-md-4">
+    <section class="col-md-5">
 
         <div class="box box-info">
             <div class="box-header" >
@@ -79,8 +79,10 @@ if (isset($_REQUEST["msgId"])) {
                     foreach ($data["messageList"] as $list) {
                         $class = $list->is_read == 0 ? "un_read_message_list" : "read_message_list";
                         ?>
-                        <li onclick="showMessage(<?= $list->id ?>)" data-target ="<?= $list->id ?>" class="<?= $class ?>">
-                            <span class="text"><?= $list->title ?></span>
+                        <li onclick="showMessage(<?= $list->id ?>)" data-target ="<?= $list->id ?>" class="<?= $class ?> col-md-12">
+                            <span style="padding: 0px;" class="col-md-8" ><?= $list->title ?></span>
+                            <span style="padding: 0px;" class="col-md-2" >by <?= getUserName($list->created_by) ?></span>
+                            <span style="padding: 0px;" class="col-md-2"> <?= dayReferance($list->created_on) ?></span>
                         </li>
                         <?php
                     }
@@ -93,7 +95,7 @@ if (isset($_REQUEST["msgId"])) {
         </div>
 
     </section>
-    <section class="col-md-8">
+    <section class="col-md-7">
 
         <div class="box box-info">
             <div class="box-header " >
@@ -104,22 +106,32 @@ if (isset($_REQUEST["msgId"])) {
             <div id="message_body_holder" class="box-body">
                 <!--Message body and comments-->
                 <div id="msg_view" class="col-md-12">
-                    <div id="msg_view_title" class="col-md-12"></div>
-                    <div id="msg_view_body" class="col-md-12"></div>
-                    <div id="msg_view_files" class="col-md-12"></div>
+                    <div class="showOnDataArival" id="msg_view_title" class="col-md-12"><label style="font-weight: bold;" >Title: </label><span  class="titleHolder"></span></div>
+                    <div id="msg_view_body" class="col-md-12"><label class="showOnDataArival">Message: </label><div class="msgHolder"><h3 style="text-align: center;"><img style="height:40px; width:80px" src="<?=  base_url()?>assets/icons/left_point_hand.jpg"/> Click on a msg to view </h3></div></div>
+                    <div id="msg_view_files" class="col-md-12"><label class="showOnlyWhenFiles">Files: </label><span class="titleHolder"></span></div>
                     <div id="comment_holder">
 
                     </div>
                 </div>
                 <div id="comment_box_holder" style="display:none"  class = "col-md-12">
-                    <form id="commentForm" class="col-md-12">
-                        <input type="hidden" name="message_id_for_comment" id="message_id_for_comment" value=""/>
+                    <form id="commentForm" class="col-md-12" method="post" enctype="multipart/form-data">
                         <div class="col-md-9">
-                            <textarea class="col-md-12" name="data[comment]" id="comment"></textarea>
+                            <input type="hidden" name="message_id_for_comment" id="message_id_for_comment" value=""/>
+                            <div class="col-md-12">
+                                <textarea class="col-md-12" name="data[comment]" id="comment"></textarea>
+                            </div>
+                            
                         </div>
-                        <div class="col-md-1">
-                            <input type="submit" value="Post Comment" class="btn btn-lg btn-success" />
+                        <div class="col-md-3">
+                            <input type="submit" value="Post Comment" class="btn btn-success" />
                         </div>
+                        <div class="col-md-12">
+                                <input name="userfile[]" onchange="showSelectedFileList()" id="filesToUpload" type="file" multiple="" />
+                                <p>
+                                    <strong>Files You Selected:</strong>
+                                </p>
+                                <ul id="fileList" class="fileListInline"><li>No Files Selected</li></ul>
+                            </div>
                     </form>
                 </div>
             </div>
